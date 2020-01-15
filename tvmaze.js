@@ -27,14 +27,17 @@ async function searchShows(query) {
     }
   });
   
+  const altImg = 'http://tinyurl.com/tv-missing';
+  
   let showData = response.data;
   let showArr = [];
+
   for(let i = 0; i < showData.length; i++){
     showArr.push({
       id: showData[i].show.id,
       name: showData[i].show.name,
       summary: showData[i].show.summary,
-      image: showData[i].show.image.original
+      image: showData[i].show.image.original ? showData[i].show.image.original : altImg
     });
   }
   console.log(showArr);
@@ -57,6 +60,7 @@ function populateShows(shows) {
          <div class="card" data-show-id="${show.id}">
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
+             <img class="card-img-top" src="${show.image}">
              <p class="card-text">${show.summary}</p>
            </div>
          </div>
