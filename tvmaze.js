@@ -62,6 +62,7 @@ function populateShows(shows) {
              <h5 class="card-title">${show.name}</h5>
              <img class="card-img-top" src="${show.image}">
              <p class="card-text">${show.summary}</p>
+             <button class="btn btn-primary episode-btn" type="submit">Episode List</button>
            </div>
          </div>
        </div>
@@ -117,3 +118,28 @@ async function getEpisodes(id) {
   }
   return episodeDetails;
 }
+
+function populateEpisodes(episodes) {
+
+  const $episodesList = $("#episodes-list");
+  $episodesList.empty();
+    
+  for (let episode of episodes) {
+    let $item = $(
+      `<li>
+         ${episode.name}
+         (season ${episode.season}, episode ${episode.number})
+       </li>
+      `);
+
+    $episodesList.append($item);
+  }
+
+  $("#episodes-area").show();
+}
+
+$("#shows-list").on("click", ".episode-btn", async function handleEpisodeClick(evt) {
+  let showId = $(evt.target).closest(".Show").data("show-id");
+  let episodes = await getEpisodes(showId);
+  populateEpisodes(episodes);
+});
