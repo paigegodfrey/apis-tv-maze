@@ -28,19 +28,20 @@ async function searchShows(query) {
   });
   
   const altImg = 'http://tinyurl.com/tv-missing';
-  
+
   let showData = response.data;
   let showArr = [];
 
   for(let i = 0; i < showData.length; i++){
+    let currentShow = showData[i];
     showArr.push({
-      id: showData[i].show.id,
-      name: showData[i].show.name,
-      summary: showData[i].show.summary,
-      image: showData[i].show.image.original ? showData[i].show.image.original : altImg
+      id: currentShow.show.id,
+      name: currentShow.show.name,
+      summary: currentShow.show.summary,
+      image: currentShow.show.image ? currentShow.show.image.original : altImg
     });
   }
-  console.log(showArr);
+  
   return showArr;
 }
 
